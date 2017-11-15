@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './UserView.css';
+
 
 var tickets = [
   {
@@ -46,6 +46,12 @@ handleRemoveTicket(index) {
 handleAddTicket(ticket) {
   this.setState({tickets: [...this.state.tickets, ticket]})
 }
+computeRowBackground(index){
+  if(index % 2 !== 0){
+    return 'evenRowBackground';
+  }
+  return 'oddRowBackground'
+}
 
   render() {
     return (
@@ -53,19 +59,26 @@ handleAddTicket(ticket) {
           <TicketInput onAddTicket={this.handleAddTicket}></TicketInput>
           <hr/>
           <h4>Ticket Count: <span className="badge">{this.state.tickets.length}</span></h4>
+
           <ul className="list-group">
-            {this.state.tickets.map((ticket, index) =>
-              <li className="list-group-item" key={index}>
-                <h4 className="list-group-item-heading">{ticket.ticketTitle} <small><span className="label label-info">{ticket.ticketPriority}</span></small></h4>
+          {this.state.tickets.map((ticket, index) =>
+            <li className={this.computeRowBackground(index)} key={index}>
+              <p>
+                {this.computeRowBackground.bind(this, index)}
+              </p>
+              <h4 className="list-group-item-heading">{ticket.ticketTitle} <small><span className="label label-info">{ticket.ticketPriority}</span></small></h4>
 
-                <p><span className="glyphicon glyphicon-tag"></span> {ticket.ticketCategory}</p>
+              <p><span className="glyphicon glyphicon-tag"></span> {ticket.ticketCategory}</p>
 
-                <p>{ticket.ticketDescription}</p>
+              <p>{ticket.ticketDescription}</p>
 
-                <button className="btn btn-danger btn-sm" onClick={this.handleRemoveTicket.bind(this, index)}><span className="glyphicon glyphicon-trash"></span> Delete</button>
-              </li>
-            )}
+              <button className="btn btn-danger btn-sm" onClick={this.handleRemoveTicket.bind(this, index)}><span className="glyphicon glyphicon-trash"></span> Delete</button>
+            </li>
+          )}
+
           </ul>
+
+
         </div>
     );
   }

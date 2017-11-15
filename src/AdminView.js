@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './AdminView.css';
+
 import { Navbar, Jumbotron, Button, button, DropdownButton, MenuItem, Popover, Accordion, Panel, PanelGroup, Modal, Overlay, OverlayTrigger, Tooltip, Form, FormGroup, Col, ControlLabel, FormControl} from 'react-bootstrap';
 
 var tickets = [
@@ -99,7 +99,7 @@ class AdminView extends Component {
 
   }
 
-close() {
+  close() {
   this.setState({ showModal: false });
 }
 
@@ -125,7 +125,12 @@ open(ticket) {
   handleMailForward(){
 
   }
-
+computeRowBackground(index){
+  if(index % 2 === 0){
+    return 'evenRowBackground';
+  }
+  return 'oddRowBackground'
+}
 
   render() {
     return (
@@ -195,10 +200,11 @@ open(ticket) {
 
         <ul className="list-group">
           {this.state.tickets.map((ticket, index) =>
-            <li className="list-group-item" key={index}>
-              <p>
-                {this.stateChecker.bind(this, ticket)}
-              </p>
+            <li className= {this.computeRowBackground(index)} key={index} >
+            <p>
+              {this.stateChecker.bind(this, ticket)}
+              {this.computeRowBackground.bind(this, index)}
+            </p>
               <h4 className="list-group-item-heading">
                 <button className = {this.stateChecker(ticket)} onClick = {this.handleFilter.bind(this, index)}>
                   <span>
