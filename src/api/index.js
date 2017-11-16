@@ -2,10 +2,10 @@ import express from 'express';
 import { MongoClient, ObjectID } from 'mongodb';
 import assert from 'assert';
 import bodyParser from 'body-parser';
-
+import uuidv4 from 'uuid/v4';
 var tickets = [
   {
-    ticketId: '1',
+    ticketId: uuidv4(),
     ticketTitle: 'Coffe Machine is broken',
     ticketDescription: 'I came this morning to work and it was broken.',
     ticketPriority: 'Medium',
@@ -15,7 +15,7 @@ var tickets = [
     ticketState: 'Pending'
   },
   {
-    ticketId: '2',
+    ticketId: uuidv4(),
     ticketTitle: 'Need a new Headset',
     ticketDescription: 'I dropped it on the floor and it stoppd working.',
     ticketPriority: 'Low',
@@ -25,7 +25,7 @@ var tickets = [
     ticketState: 'Refused'
   },
   {
-    ticketId: '3',
+    ticketId: uuidv4(),
     ticketTitle: 'Water is not working',
     ticketDescription: 'Water stopped working at around 9 AM.',
     ticketPriority: 'High',
