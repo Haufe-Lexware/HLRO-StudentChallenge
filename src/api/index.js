@@ -41,7 +41,7 @@ router.get('/tickets', (req, res) =>{
 
   console.log('In /tickets')
   res.send(tickets);
-  return tickets;
+  return tickets ;
 });
 
 router.get('/tickets/:ticket_id', (req, res) =>{
