@@ -3,21 +3,53 @@ import { MongoClient, ObjectID } from 'mongodb';
 import assert from 'assert';
 import bodyParser from 'body-parser';
 
-
+var tickets = [
+  {
+    ticketId: '1',
+    ticketTitle: 'Coffe Machine is broken',
+    ticketDescription: 'I came this morning to work and it was broken.',
+    ticketPriority: 'Medium',
+    ticketCategory: 'Food & Drinks',
+    ticketDate: '20.10.2017, 8:10',
+    ticketSender: 'Mihai Golcea',
+    ticketState: 'Pending'
+  },
+  {
+    ticketId: '2',
+    ticketTitle: 'Need a new Headset',
+    ticketDescription: 'I dropped it on the floor and it stoppd working.',
+    ticketPriority: 'Low',
+    ticketCategory: 'Hardware',
+    ticketDate: '19.10.2017, 14:12',
+    ticketSender: 'Mihai Golcea',
+    ticketState: 'Refused'
+  },
+  {
+    ticketId: '3',
+    ticketTitle: 'Water is not working',
+    ticketDescription: 'Water stopped working at around 9 AM.',
+    ticketPriority: 'High',
+    ticketCategory: 'Utilities',
+    ticketDate: '16.10.2017, 09:25',
+    ticketSender: 'Ionut Popescu',
+    ticketState: 'Solved'
+  }
+]
 const router = express.Router();
 
 router.get('/tickets', (req, res) =>{
-  let tickets = [{a: 'g'}, {a:'u'}];
+
   console.log('In /tickets')
   res.send(tickets);
   return tickets;
 });
 
 router.get('/tickets/:ticket_id', (req, res) =>{
-   const ticketId = req.params.ticket_id;
-  let ticket = {a:'b'};
+  const ticketId = req.params.ticket_id;
   console.log('In /tickets/',ticketId);
-  res.send(ticket);
+  res.send(
+    tickets.find(ticket => ticket.ticketId === ticketId)
+  );
 });
 
 const server = express();
