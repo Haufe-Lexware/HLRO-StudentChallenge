@@ -12,9 +12,11 @@
     "bootstrap": "^3.3.7",
     "bootstrap-dialog": "^1.34.6",
     "express": "^4.16.2",
+    "http": "0.0.0",
     "mongodb": "^2.2.33",
     "nodemailer": "^4.3.1",
     "nodemon": "^1.12.1",
+    "qs": "^6.5.1",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
     "react-context-menu-popup": "^1.0.13",
@@ -36,7 +38,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "startApi": "nodemon --exec babel-node ./src/api/index.js --ignore public/"
-
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",
