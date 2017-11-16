@@ -9,14 +9,14 @@ class App extends Component {
   render() {
     return(
       <div>
-      <header>
-         <nav>
-           <ul>
-             <li><Link to='/'>User View</Link></li>
-             <li><Link to='/adminView'>Admin View</Link></li>
-           </ul>
-         </nav>
-       </header>
+        <header>
+          <nav>
+            <ul>
+              <li><Link to='/'>User View</Link></li>
+              <li><Link to='/adminView'>Admin View</Link></li>
+            </ul>
+          </nav>
+        </header>
 
       <main>
         <Switch>
