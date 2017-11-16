@@ -26,6 +26,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.0.17",
     "react-simple-dropdown": "^3.2.0",
+    "uuid": "^3.1.0",
     "webpack": "^3.8.1",
     "window-popup": "^1.1.0"
   },
@@ -33,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "startApi": "nodemon --exec babel-node ./src/api/index.js --ignore public/"
+
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",
