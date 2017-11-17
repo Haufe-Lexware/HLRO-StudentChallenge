@@ -36,7 +36,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "startApi": "nodemon --exec babel-node ./src/api/index.js --ignore public/"
-
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",
