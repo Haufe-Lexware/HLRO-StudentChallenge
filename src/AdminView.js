@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import SendMailInfo from './components/AdminView/SendMailClient2.js'
 
 import { Navbar, Jumbotron, Button, button, DropdownButton, MenuItem, Popover, Accordion, Panel, PanelGroup, Modal, Overlay, OverlayTrigger, Tooltip, Form, FormGroup, Col, ControlLabel, FormControl} from 'react-bootstrap';
 
@@ -73,6 +74,12 @@ class AdminView extends Component {
     this.handleRefuse = this.handleRefuse.bind(this);
   }
 
+  onChange(e) {
+    this.setState({
+        [e.target.name]: e.target.value
+    });
+}
+
   handleFilter(index){
 
   }
@@ -101,12 +108,14 @@ class AdminView extends Component {
 
   close() {
   this.setState({ showModal: false });
+  console.log('Popup Closed')
 }
 
 open(ticket) {
   this.setState({ showModal: true });
   this.state.ticketTitle = ticket.ticketTitle
   this.state.ticketDescription = ticket.ticketDescription
+  console.log('Popup Opened')
 }
 
   stateChecker(ticket){
@@ -123,8 +132,14 @@ open(ticket) {
   }
 
   handleMailForward(){
+    //extract popup ui data in objet and pass it to sendmailclient method
+    SendMailInfo.sendMailInfo();
+    console.log('Mail Request Sent')
+    this.setState({ showModal: false });
+    console.log('Popup Closed')
 
   }
+
 computeRowBackground(index){
   if(index % 2 === 0){
     return 'evenRowBackground';

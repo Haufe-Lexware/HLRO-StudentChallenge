@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ajax": "0.0.4",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
@@ -17,6 +18,7 @@
     "nodemailer": "^4.3.1",
     "nodemon": "^1.12.1",
     "qs": "^6.5.1",
+    "querystring": "^0.2.0",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.5",
     "react-context-menu-popup": "^1.0.13",
@@ -28,6 +30,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.0.17",
     "react-simple-dropdown": "^3.2.0",
+    "request": "^2.83.0",
     "uuid": "^3.1.0",
     "webpack": "^3.8.1",
     "window-popup": "^1.1.0"

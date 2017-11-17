@@ -7,4 +7,4 @@ const mailData = {
 
 }
 
-export mailData;
+export default mailData;
