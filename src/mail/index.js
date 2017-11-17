@@ -7,6 +7,11 @@ import bodyParser from 'body-parser';
 
 const router = express.Router();
 
+//let subject = "";
+//let reciever = "";
+//let sender = "";
+//let content = "";
+
 router.post('/send', (req, res) =>{
   console.log('In /mail');
   //console.log(req);
@@ -37,13 +42,24 @@ server.listen(5000, '0.0.0.0', () => {
 
 // The Mail Sending Part
 let transporter = nodemailer.createTransport({
-    host: 'localhost',
-    port: 587,
+    host: '10.102.1.100',
+    port: 25,
     secure: false, // true for 465, false for other ports
     auth: {
-
-    }
+      //user: 'user@mailserver.com',
+    //  pass: 'passwd'
+    },
+    tls: {rejectUnauthorized: false},
+    debug:true
 });
+
+let mailOptions = {
+    from: ' " Fred Foo 👻 " < Aryan.Ahmadi-Khoie@haufe-lexware.com > ', // sender address
+    to: 'Iulia.Rus@haufe-lexware.com, Iulia.Rus@haufe-lexware.com', // list of receivers
+    subject: subject, // Subject line
+    text: content, // plain text body
+  //  html: content  html body
+};
 
 transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
