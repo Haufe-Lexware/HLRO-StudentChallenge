@@ -7,20 +7,20 @@ import bodyParser from 'body-parser';
 
 const router = express.Router();
 
-//let subject = "";
-//let reciever = "";
-//let sender = "";
-//let content = "";
+var subject = "Hello";
+var reciever = "Iulia.Rus@haufe-lexware.com";
+var sender = "Aryan.Ahmadi-Khoie@haufe-lexware.com";
+var content = "Some Text";
 
 router.post('/send', (req, res) =>{
   console.log('In /mail');
   //console.log(req);
   const mailData = req.body;
   console.log(mailData);
-  const subject = mailData.subject;
-  const reciever = mailData.reciever;
-  const sender = mailData.sender;
-  const content = mailData.content;
+  subject = mailData.subject;
+  reciever = mailData.reciever;
+  sender = mailData.sender;
+  content = mailData.content;
 
 
   //return true;
@@ -46,7 +46,7 @@ let transporter = nodemailer.createTransport({
     port: 25,
     secure: false, // true for 465, false for other ports
     auth: {
-      //user: 'user@mailserver.com',
+    //user: 'user@mailserver.com',
     //  pass: 'passwd'
     },
     tls: {rejectUnauthorized: false},
@@ -54,8 +54,8 @@ let transporter = nodemailer.createTransport({
 });
 
 let mailOptions = {
-    from: ' " Fred Foo 👻 " < Aryan.Ahmadi-Khoie@haufe-lexware.com > ', // sender address
-    to: 'Iulia.Rus@haufe-lexware.com, Iulia.Rus@haufe-lexware.com', // list of receivers
+    from: (' " Fred Foo 👻 " < %s > ', sender), // sender address
+    to: reciever, // list of receivers
     subject: subject, // Subject line
     text: content, // plain text body
   //  html: content  html body
