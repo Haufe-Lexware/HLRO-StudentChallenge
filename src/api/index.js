@@ -15,7 +15,11 @@ router.get('/tickets', (req, res) =>{
 
 router.get('/tickets/:ticket_id', (req, res) =>{
    const ticketId = req.params.ticket_id;
-  let ticket = {a:'b'};
+  let ticket = {
+                  ticketId:'1',
+                  ProblemType:'no more Coffee',
+                  Severity:'High'
+                };
   console.log('In /tickets/',ticketId);
   res.send(ticket);
 });

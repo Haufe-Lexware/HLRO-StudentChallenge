@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 
 import { Navbar, Jumbotron, Button, button, DropdownButton, MenuItem, Popover, Accordion, Panel, PanelGroup, Modal, Overlay, OverlayTrigger, Tooltip, Form, FormGroup, Col, ControlLabel, FormControl} from 'react-bootstrap';
+import Popup from './components/Popup';
 
 var tickets = [
   {
@@ -63,8 +64,7 @@ class AdminView extends Component {
     super(props);
 
     this.state = {
-      tickets,
-      showModal:  false
+      tickets
     //  resolvedTickets
     };
 
@@ -99,15 +99,6 @@ class AdminView extends Component {
 
   }
 
-  close() {
-  this.setState({ showModal: false });
-}
-
-open(ticket) {
-  this.setState({ showModal: true });
-  this.state.ticketTitle = ticket.ticketTitle
-  this.state.ticketDescription = ticket.ticketDescription
-}
 
   stateChecker(ticket){
   //  alert(index);
@@ -146,61 +137,13 @@ computeRowBackground(index){
           </span>
         </h5>
         <div>
-          <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
-            <Modal.Header closeButton>
-              <Modal.Title>Send Mail</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
 
-
-              <Form horizontal>
-                <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={2}>
-                    To:
-                  </Col>
-                  <Col sm={10}>
-                  <FormControl type="email" defaultValue = "Aryan.Ahmadi-Khoie@haufe-lexware.com"/>
-                  </Col>
-                </FormGroup>
-              </Form>
-              <hr/>
-              <Form horizontal>
-                <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={2}>
-                    Subject:
-                  </Col>
-                  <Col sm={10}>
-                    <FormControl type="email" defaultValue={this.state.ticketTitle}/>
-                  </Col>
-                </FormGroup>
-              </Form>
-              <hr/>
-              <Form horizontal>
-                <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={0}>
-
-                  </Col>
-                  <Col sm={12}>
-                    <FormControl style={{height: '300px'}} componentClass="textarea" type="email" defaultValue={this.state.ticketDescription}/>
-                  </Col>
-                </FormGroup>
-              </Form>
-              <br/>
-              <div className="text-center" style = {{ maxWidth: 250, margin: '0 auto 10px' }}>
-                <Button bsStyle="success" onClick = {this.handleMailForward.bind(this)} block>
-                  Send
-                </Button>
-              </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={this.close.bind(this)}>Close</Button>
-            </Modal.Footer>
-          </Modal>
         </div>
 
         <ul className="list-group">
           {this.state.tickets.map((ticket, index) =>
             <li className= {this.computeRowBackground(index)} key={index} >
+            <Popup ref="popup"/>
             <p>
               {this.stateChecker.bind(this, ticket)}
               {this.computeRowBackground.bind(this, index)}
@@ -226,7 +169,8 @@ computeRowBackground(index){
                 <MenuItem onClick = {this.handleSolve.bind(this,ticket)}>Mark as Solved</MenuItem>
                 <MenuItem onClick= {this.handleRefuse.bind(this,ticket)}>Mark as Refused</MenuItem>
                 <MenuItem divider />
-                <MenuItem onClick = {this.open.bind(this, ticket)}> E-mail Forward </MenuItem>
+
+                <MenuItem onClick = {() => this.refs.popup.open.bind(this, ticket)}> E-mail Forward </MenuItem>
               </DropdownButton>
               </h4>
               <p>
