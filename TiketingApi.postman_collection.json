@@ -1,0 +1,75 @@
+{
+	"variables": [],
+	"info": {
+		"name": "TiketingApi",
+		"_postman_id": "00a223a1-465a-56f0-fc89-814420fe10b0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - All Tickets",
+			"request": {
+				"url": "localhost:4000/api/tickets",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Ticket",
+			"request": {
+				"url": "localhost:4000/api/tickets/c5d860c2-524d-4d60-be2f-fde909c260e9",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Ticket",
+			"request": {
+				"url": "localhost:4000/api/tickets/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ticketTitle\": \"Coffe Machine is broken\",\r\n    \"ticketDescription\": \"I came this morning to work and it was broken.\",\r\n    \"ticketPriority\": \"Medium\",\r\n    \"ticketCategory\": \"Food & Drinks\",\r\n    \"ticketDate\": \"20.10.2017, 8:10\",\r\n    \"ticketSender\": \"RuIu\",\r\n    \"ticketState\": \"Pending\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT - Ticket",
+			"request": {
+				"url": "localhost:4000/api/tickets/c5d860c2-524d-4d60-be2f-fde909c260e9",
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE - Ticket",
+			"request": {
+				"url": "localhost:4000/api/tickets/c5d860c2-524d-4d60-be2f-fde909c260e9",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
