@@ -1,61 +1,79 @@
 import express from 'express';
-import { MongoClient, ObjectID } from 'mongodb';
 import assert from 'assert';
 import bodyParser from 'body-parser';
 import uuidv4 from 'uuid/v4';
-var tickets = [
-  {
-    ticketId: uuidv4(),
-    ticketTitle: 'Coffe Machine is broken',
-    ticketDescription: 'I came this morning to work and it was broken.',
-    ticketPriority: 'Medium',
-    ticketCategory: 'Food & Drinks',
-    ticketDate: '20.10.2017, 8:10',
-    ticketSender: 'Mihai Golcea',
-    ticketState: 'Pending'
-  },
-  {
-    ticketId: uuidv4(),
-    ticketTitle: 'Need a new Headset',
-    ticketDescription: 'I dropped it on the floor and it stoppd working.',
-    ticketPriority: 'Low',
-    ticketCategory: 'Hardware',
-    ticketDate: '19.10.2017, 14:12',
-    ticketSender: 'Mihai Golcea',
-    ticketState: 'Refused'
-  },
-  {
-    ticketId: uuidv4(),
-    ticketTitle: 'Water is not working',
-    ticketDescription: 'Water stopped working at around 9 AM.',
-    ticketPriority: 'High',
-    ticketCategory: 'Utilities',
-    ticketDate: '16.10.2017, 09:25',
-    ticketSender: 'Ionut Popescu',
-    ticketState: 'Solved'
-  }
-]
+import TicketsApi from './MongoClient';
+
 const router = express.Router();
 
-router.get('/tickets', (req, res) =>{
+router.get('/tickets', (req, res) => {
+  console.log('GET - tickets');
 
-  console.log('In /tickets')
-  res.send(tickets);
-  return tickets ;
+  TicketsApi.findAllTickets(function(err, dbTickets) {
+    console.log('dbTickets = ', dbTickets);
+    assert(null === err, 'Unable to get tickets error:' + err);
+    res.send(dbTickets);
+  });
+  //  console.log('tickets found = ', tickets);
 });
 
-router.get('/tickets/:ticket_id', (req, res) =>{
+router.get('/tickets/:_id', (req, res) => {
+  const _id = req.params.ticket_id;
+  console.log('GET - tickets/', _id);
+  TicketsApi.findAllTickets(function(err, dbTickets) {
+    console.log('dbTickets = ', dbTickets);
+    assert(null === err, 'Unable to get tickets error:' + err);
+    res.send(dbTickets.find(function(ticket) {
+      return _id === ticket.ticket_id;
+    }));
+  });
+});
+
+router.post('/tickets', function(req, res) {
+  console.log('POST - tickets/')
+  console.log(req.body);
+  TicketsApi.createTicket(req.body, function(err, newTicket) {
+    if (err) {
+      console.log('Error on creating ticket: ', err);
+      res.send(err);
+    }
+    res.send(newTicket);
+  });
+});
+
+router.put('/tickets/:ticket_id', (req, res) => {
   const ticketId = req.params.ticket_id;
-  console.log('In /tickets/',ticketId);
+  console.log('UPDATE - tickets/', ticketId)
   res.send(
     tickets.find(ticket => ticket.ticketId === ticketId)
   );
 });
 
+router.delete('/tickets/:ticket_id', (req, res) => {
+  const ticketId = req.params.ticket_id;
+  console.log('DELETE - tickets/', ticketId)
+  TicketsApi.deleteTicket(ticketId, function(err, deletedTicket) {
+    console.log(err);
+    if (err === null) {
+      console.log('Deleted ticket', deletedTicket)
+      res.send(deletedTicket);
+    } else {
+      console.log('Error deleting ticket ', ticketId, err);
+      res.send(err);
+    }
+  });
+})
+
+
+
+
 const server = express();
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({
+  extended: true
+}));
 server.use('/api', router);
 server.use(express.static('public'));
-server.use(bodyParser.json());
 
 server.listen(4000, '0.0.0.0', () => {
   console.info('API server runni', 4000);
