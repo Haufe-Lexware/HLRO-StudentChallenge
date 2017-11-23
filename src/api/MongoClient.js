@@ -3,7 +3,6 @@ import mongoose, {
 } from 'mongoose';
 
 const ticketSchema = Schema({
-  _id: String,
   ticketTitle: String,
   ticketDescription: String,
   ticketPriority: String,

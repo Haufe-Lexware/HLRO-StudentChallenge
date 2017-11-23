@@ -17,15 +17,22 @@ router.get('/tickets', (req, res) => {
   //  console.log('tickets found = ', tickets);
 });
 
-router.get('/tickets/:_id', (req, res) => {
-  const _id = req.params.ticket_id;
-  console.log('GET - tickets/', _id);
+router.get('/tickets/:ticket_id', (req, res) => {
+  const ticketId = req.params.ticket_id;
+  console.log('GET - tickets/', ticketId);
   TicketsApi.findAllTickets(function(err, dbTickets) {
     console.log('dbTickets = ', dbTickets);
     assert(null === err, 'Unable to get tickets error:' + err);
-    res.send(dbTickets.find(function(ticket) {
-      return _id === ticket.ticket_id;
-    }));
+    let match = dbTickets.find(function(ticket) {
+      console.log('Tiket id= ',ticketId);
+      console.log('Tiket = ',ticket);
+      console.log('Checking ', ticket._id, ' against ', ticketId );
+      let compare = ticket._id == ticketId;
+      console.log('compare = ', compare);
+      return compare;
+    });
+    console.log('Match = ', match);
+    res.send(match);
   });
 });
 
