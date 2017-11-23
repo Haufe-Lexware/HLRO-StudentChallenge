@@ -15,25 +15,27 @@ mongoose.connect('mongodb://localhost:27017/ticketsdb', {
   useMongoClient: true
 }).on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+const TicketModel = mongoose.model('Ticket', ticketSchema);
+
 const TicketsApi = {
   findAllTickets: function(functionToCallWhenMongoHasResultsForFindCall) {
     console.log('Start - findAllTickets');
-    mongoose.model('Ticket', ticketSchema).find({}, functionToCallWhenMongoHasResultsForFindCall);
+    TicketModel.find({}, functionToCallWhenMongoHasResultsForFindCall);
   },
 
   createTicket: (ticket, functionToCallWhenMongoHasResultsForFindCall) => {
     console.log('Implement ticket save in mongo client')
-    let NewTicketTemplate = mongoose.model('Ticket', ticketSchema);
-    let newTicket = new NewTicketTemplate(ticket);
-    newTicket.save(functionToCallWhenMongoHasResultsForFindCall)
+    let newTicket = new TicketModel(ticket);
+    newTicket.save(functionToCallWhenMongoHasResultsForFindCall);
+  },
+  updateTicket: (ticketId, ticket, functionToCallWhenMongoUpdatedTicket) => {
+    TicketModel.findByIdAndUpdate(ticketId, ticket, {
+      new: true
+    }, functionToCallWhenMongoUpdatedTicket);
   },
 
-  deleteTicket: (ticketId, functionToCallWhenMongoDeletedTicketsCall) => {
-    let DeletedTicketTemplate = mongoose.model('TicketId', ticketSchema);
-    DeletedTicketTemplate.findOneAndRemove({
-      _id: ticketId
-    }, functionToCallWhenMongoDeletedTicketsCall);
-    //DeletedTicketTemplate.findByIdAndRemove(ticketId, functionToCallWhenMongoDeletedTicketsCall);
+  deleteTicket: (ticketId, functionToCallWhenMongoDeletedTickets) => {
+    TicketModel.findByIdAndRemove(ticketId, functionToCallWhenMongoDeletedTickets);
   }
 
   //  createTicket: TicketModel.find((err, dbTickets)=>{

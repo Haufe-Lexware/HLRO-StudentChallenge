@@ -8,7 +8,9 @@ const router = express.Router();
 
 router.get('/tickets', (req, res) => {
   console.log('GET - tickets');
-
+  if (req.headers.log_headers == 'true') {
+    console.log(req.headers)
+  }
   TicketsApi.findAllTickets(function(err, dbTickets) {
     console.log('dbTickets = ', dbTickets);
     assert(null === err, 'Unable to get tickets error:' + err);
@@ -24,9 +26,9 @@ router.get('/tickets/:ticket_id', (req, res) => {
     console.log('dbTickets = ', dbTickets);
     assert(null === err, 'Unable to get tickets error:' + err);
     let match = dbTickets.find(function(ticket) {
-      console.log('Tiket id= ',ticketId);
-      console.log('Tiket = ',ticket);
-      console.log('Checking ', ticket._id, ' against ', ticketId );
+      console.log('Tiket id= ', ticketId);
+      console.log('Tiket = ', ticket);
+      console.log('Checking ', ticket._id, ' against ', ticketId);
       let compare = ticket._id == ticketId;
       console.log('compare = ', compare);
       return compare;
@@ -51,9 +53,14 @@ router.post('/tickets', function(req, res) {
 router.put('/tickets/:ticket_id', (req, res) => {
   const ticketId = req.params.ticket_id;
   console.log('UPDATE - tickets/', ticketId)
-  res.send(
-    tickets.find(ticket => ticket.ticketId === ticketId)
-  );
+  TicketsApi.updateTicket(ticketId, req.body, function(err, updatedTicket) {
+    if (err) {
+      console.log('Error updating ticket: ', ticketId, err);
+      res.send(err);
+    }
+    console.log('Updated ticket', updatedTicket);
+    res.send(updatedTicket);
+  });
 });
 
 router.delete('/tickets/:ticket_id', (req, res) => {
@@ -62,14 +69,14 @@ router.delete('/tickets/:ticket_id', (req, res) => {
   TicketsApi.deleteTicket(ticketId, function(err, deletedTicket) {
     console.log(err);
     if (err === null) {
-      console.log('Deleted ticket', deletedTicket)
+      console.log('Deleted ticket', deletedTicket);
       res.send(deletedTicket);
     } else {
       console.log('Error deleting ticket ', ticketId, err);
       res.send(err);
     }
   });
-})
+});
 
 
 
