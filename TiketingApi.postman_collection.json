@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "TiketingApi",
-		"_postman_id": "00a223a1-465a-56f0-fc89-814420fe10b0",
+		"_postman_id": "30942ef5-f3da-8989-c714-d5bd5dc028ac",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -13,7 +13,10 @@
 				"url": "localhost:4000/api/tickets",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -21,7 +24,7 @@
 		{
 			"name": "GET - Ticket",
 			"request": {
-				"url": "localhost:4000/api/tickets/c5d860c2-524d-4d60-be2f-fde909c260e9",
+				"url": "localhost:4000/api/tickets/5a156d6a22f7b042ec4dac0e",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -55,7 +58,10 @@
 				"url": "localhost:4000/api/tickets/c5d860c2-524d-4d60-be2f-fde909c260e9",
 				"method": "PUT",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -63,7 +69,7 @@
 		{
 			"name": "DELETE - Ticket",
 			"request": {
-				"url": "localhost:4000/api/tickets/c5d860c2-524d-4d60-be2f-fde909c260e9",
+				"url": "localhost:4000/api/tickets/5a156d6a22f7b042ec4dac0e",
 				"method": "DELETE",
 				"header": [],
 				"body": {},
