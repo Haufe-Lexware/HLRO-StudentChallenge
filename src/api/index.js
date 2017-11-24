@@ -14,6 +14,9 @@ router.get('/tickets', (req, res) => {
   TicketsApi.findAllTickets(function(err, dbTickets) {
     console.log('dbTickets = ', dbTickets);
     assert(null === err, 'Unable to get tickets error:' + err);
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.send(dbTickets);
   });
   //  console.log('tickets found = ', tickets);
@@ -34,6 +37,8 @@ router.get('/tickets/:ticket_id', (req, res) => {
       return compare;
     });
     console.log('Match = ', match);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.send(match);
   });
 });
@@ -41,11 +46,19 @@ router.get('/tickets/:ticket_id', (req, res) => {
 router.post('/tickets', function(req, res) {
   console.log('POST - tickets/')
   console.log(req.body);
+  console.log(req.headers);
   TicketsApi.createTicket(req.body, function(err, newTicket) {
     if (err) {
       console.log('Error on creating ticket: ', err);
+      res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      res.header("Access-Control-Allow-Methods", "POST");
       res.send(err);
     }
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "http://localhost:3000");
+    res.header("Access-Control-Allow-Methods", "POST");
     res.send(newTicket);
   });
 });
@@ -53,6 +66,8 @@ router.post('/tickets', function(req, res) {
 router.put('/tickets/:ticket_id', (req, res) => {
   const ticketId = req.params.ticket_id;
   console.log('UPDATE - tickets/', ticketId)
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
   TicketsApi.updateTicket(ticketId, req.body, function(err, updatedTicket) {
     if (err) {
       console.log('Error updating ticket: ', ticketId, err);
@@ -66,6 +81,8 @@ router.put('/tickets/:ticket_id', (req, res) => {
 router.delete('/tickets/:ticket_id', (req, res) => {
   const ticketId = req.params.ticket_id;
   console.log('DELETE - tickets/', ticketId)
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
   TicketsApi.deleteTicket(ticketId, function(err, deletedTicket) {
     console.log(err);
     if (err === null) {

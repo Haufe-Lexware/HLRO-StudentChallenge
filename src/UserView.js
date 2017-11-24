@@ -1,27 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-
-
-var tickets = [
-  {
-    ticketTitle: 'Coffe Machine is broken',
-    ticketDescription: 'I came this morning to work and it was broken.',
-    ticketPriority: 'low',
-    ticketCategory: 'Food & Drinks'
-  },
-  {
-    ticketTitle: 'Need a new Headset',
-    ticketDescription: 'I dropped it on the floor and it stopped working.',
-    ticketPriority: 'medium',
-    ticketCategory: 'Hardware'
-  },
-  {
-    ticketTitle: 'Water is not working',
-    ticketDescription: 'Water stopped working at around 9 AM.',
-    ticketPriority: 'high',
-    ticketCategory: 'Utilities'
-  }
-]
+import ApiClient from './components/ApiClient';
 
 class UserView extends Component {
 
@@ -29,12 +8,20 @@ constructor (props) {
   super(props);
 
   this.state = {
-    tickets
+    tickets:[]
   };
 
   this.handleAddTicket = this.handleAddTicket.bind(this);
 }
 
+componentDidMount() {
+  ApiClient.retrieveTikets('RusIu', (res) => {
+    console.log(res.data);
+    this.setState({
+      tickets: res.data
+    });
+  });
+}
 handleRemoveTicket(index) {
   this.setState({
     tickets: this.state.tickets.filter(function(e, i) {
@@ -44,7 +31,12 @@ handleRemoveTicket(index) {
 }
 
 handleAddTicket(ticket) {
-  this.setState({tickets: [...this.state.tickets, ticket]})
+  console.log(ticket)
+  ticket.ticketSender ='RusIu';
+  ApiClient.createTicket(ticket, (res)=>{
+
+    this.componentDidMount();
+  });
 }
 computeRowBackground(index){
   if(index % 2 !== 0){
@@ -116,7 +108,7 @@ handleSubmit(event) {
     ticketTitle:'',
     ticketDescription:'',
     ticketPriority:'Lowest',
-    ticketCateory:''
+    ticketCateory:'',
     });
   }
 
